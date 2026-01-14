@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Consistency Log</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- AUTH VIEW -->
+<div id="authView" class="auth-wrapper">
+  <div class="brand" style="margin-bottom:16px">
+    <div class="logo">HB</div>
+    <div>
+      <div style="font-size:20px;font-weight:800">The Consistency Log</div>
+      <div class="sub">Create an account to save your habits</div>
+    </div>
+  </div>
+
+  <div class="auth-tabs">
+    <button id="tabLogin" class="auth-tab active">Log in</button>
+    <button id="tabSignup" class="auth-tab">Sign up</button>
+  </div>
+
+  <!-- Login form -->
+  <div id="loginForm">
+    <div class="auth-title">Welcome back</div>
+    <div class="auth-sub">Log in to access your illustrated habit cards and reminders.</div>
+    <div class="auth-field">
+      <label for="loginEmail">Email</label>
+      <input id="loginEmail" type="email" placeholder="you@example.com">
+    </div>
+    <div class="auth-field">
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" type="password" placeholder="••••••••">
+    </div>
+    <button id="loginBtn" class="btn" style="width:100%;margin-top:6px">Log in</button>
+    <div id="loginError" class="auth-error"></div>
+    <!-- <div class="auth-note">Accounts are stored only in this browser using local storage.</div> -->
+  </div>
+
+  <!-- Signup form -->
+  <div id="signupForm" class="hidden">
+    <div class="auth-title">Create your account</div>
+    <div class="auth-sub">Sign up once and your habits stay saved on this device.</div>
+    <div class="auth-field">
+      <label for="signupName">Name</label>
+      <input id="signupName" type="text" placeholder="Your name">
+    </div>
+    <div class="auth-field">
+      <label for="signupEmail">Email</label>
+      <input id="signupEmail" type="email" placeholder="you@example.com">
+    </div>
+    <div class="auth-field">
+      <label for="signupPassword">Password</label>
+      <input id="signupPassword" type="password" placeholder="Choose a password">
+    </div>
+    <button id="signupBtn" class="btn" style="width:100%;margin-top:6px">Sign up</button>
+    <div id="signupError" class="auth-error"></div>
+    <!-- <div class="auth-note">No server is used; data stays locally in your browser storage.[web:3][web:17]</div> -->
+  </div>
+</div>
+
+<!-- APP VIEW (hidden until logged in) -->
+<div id="appView" class="app hidden">
+  <header>
+    <div class="brand">
+      <div class="logo">HB</div>
+      <div>
+        <h1>The Consistency Log</h1>
+        <div class="sub" id="welcomeText">Large banners, reminders, and desktop notifications</div>
+      </div>
+    </div>
+    <div class="controls">
+      <input id="search" class="search" placeholder="Search..." />
+      <button id="openForm" class="btn">+ New Habit</button>
+      <button id="logoutBtn" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)">Logout</button>
+    </div>
+  </header>
+
+  <!-- main -->
+  <main class="panel" id="mainPanel">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="display:flex;flex-direction:column">
+        <div class="small-muted">Your habits</div>
+        <div style="font-size:18px;font-weight:800">Illustrated Cards</div>
+      </div>
+      <div class="small-muted" id="stats">0 habits • 0 upcoming</div>
+    </div>
+
+    <div id="cards" class="cards" aria-live="polite"></div>
+
+    <!-- hidden form area (toggle) -->
+    <div id="formArea" style="margin-top:12px;display:none">
+      <div class="form-row">
+        <input id="hTitle" type="text" placeholder="Habit title (e.g., Morning run)">
+        <select id="hType">
+          <option value="fitness">Fitness</option>
+          <option value="reading">Reading</option>
+          <option value="water">Hydration</option>
+          <option value="sleep">Sleep</option>
+          <option value="custom">Custom</option>
+        </select>
+        <input id="hDate" type="date">
+        <input id="hTime" type="time">
+        <button id="saveBtn" class="btn">Save</button>
+        <button id="cancelBtn" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)">Cancel</button>
+      </div>
+      <div class="small-muted" style="margin-top:8px">Choose date & time to receive the desktop reminder (local time).</div>
+    </div>
+  </main>
+
+  <!-- sidebar -->
+  <aside class="panel" id="sidePanel">
+    <div class="date-now">
+      <div>
+        <div class="small-muted">Today</div>
+        <div class="today" id="todayLabel"></div>
+      </div>
+      <div id="nowClock" class="small-muted"></div>
+    </div>
+
+    <div>
+      <div class="small-muted" style="margin-bottom:6px">Upcoming Reminders</div>
+      <div id="upcoming" class="upcoming"></div>
+    </div>
+
+    <div>
+      <div class="small-muted" style="margin-bottom:6px">Quick actions</div>
+      <div style="display:flex;gap:8px">
+        <button id="exportBtn" class="btn">Export</button>
+        <button id="clearBtn" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)">Clear All</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<audio id="ping" preload="auto">
+  <source src="https://files.catbox.moe/4jf6uq.mp3" type="audio/mpeg">
+</audio>
+
+<script src="app.js"></script>
+</body>
+</html>
